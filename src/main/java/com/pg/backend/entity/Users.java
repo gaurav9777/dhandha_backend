@@ -5,14 +5,18 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pg.backend.utils.CustomDateTimeConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "mobileNumber")
+})
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Users {
 
     @Id
@@ -25,6 +29,7 @@ public class Users {
 
     private Integer age;
 
+    @Column(unique = true)
     private String mobileNumber;
 
     private String email;
@@ -39,7 +44,7 @@ public class Users {
 
     @Convert(converter = CustomDateTimeConverter.class)
     @Column(name = "date_of_joining")
-    private Long DateOfJoining;
+    private Long dateOfJoining;
 
     @Convert(converter = CustomDateTimeConverter.class)
     @Column(name = "last_date")
