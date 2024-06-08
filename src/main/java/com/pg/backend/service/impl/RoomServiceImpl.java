@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.pg.backend.constants.ApplicationConstants.SUCCESS_MESSAGE;
+import static com.pg.backend.constants.ApplicationConstants.SUCCESS_STATUS_CODE;
+
 @Service
 @Slf4j
 public class RoomServiceImpl implements RoomService {
@@ -19,8 +22,8 @@ public class RoomServiceImpl implements RoomService {
     public CommonResponse getRoomDetails(Long roomId) {
          Rooms roomsData = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
          return CommonResponse.builder()
-                 .message("success")
-                 .statusCode(200)
+                 .message(SUCCESS_MESSAGE)
+                 .statusCode(SUCCESS_STATUS_CODE)
                  .response(roomsData)
                  .build();
     }
