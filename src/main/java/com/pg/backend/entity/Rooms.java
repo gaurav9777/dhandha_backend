@@ -22,7 +22,9 @@ public class Rooms {
 
     private String roomPaymentStatus; // paid , partial_Paid , pending , unpaid
 
-    private Long totalMonth;
+    private Long peopleCount;
+
+    private Integer floor;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference

@@ -42,10 +42,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResponse addNewUser(AddUserRequestDto addUserRequestDto) {
-        Optional<Rooms> rooms = roomRepository.findById(addUserRequestDto.getRoomId());
-        if (!rooms.isPresent()) {
+        Optional<Rooms> optionalRooms = roomRepository.findById(addUserRequestDto.getRoomId());
+        if (!optionalRooms.isPresent()) {
             throw new ClientException("Room is not there with this id!!");
         }
+        Rooms rooms = optionalRooms.get();
         Users users = Users.builder()
                 .firstName(addUserRequestDto.getFirstName())
                 .lastName(addUserRequestDto.getLastName())
@@ -59,8 +60,10 @@ public class UserServiceImpl implements UserService {
                 .dateOfJoining(addUserRequestDto.getDateOfJoining())
                 .lastDate(addUserRequestDto.getLastDate())
                 .roomRentStatus(addUserRequestDto.getRoomRentStatus())
-                .room(rooms.get()).build();
+                .room(rooms).build();
         userRepository.save(users);
+        rooms.setPeopleCount(rooms.getPeopleCount()+1);
+        roomRepository.save(rooms);
         return CommonResponse.builder()
                 .message(SUCCESS_MESSAGE)
                 .statusCode(SUCCESS_STATUS_CODE)
