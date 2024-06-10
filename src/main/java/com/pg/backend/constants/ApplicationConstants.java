@@ -8,4 +8,6 @@ public class ApplicationConstants {
     public static final String SUCCESS_MESSAGE = "success";
     public static final Integer SUCCESS_STATUS_CODE = 200;
 
+    public static final Integer CLIENT_EXCEPTION_STATUS_CODE = 601;
+
 }
