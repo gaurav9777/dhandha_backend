@@ -1,6 +1,7 @@
 package com.pg.backend.service.impl;
 
-import com.pg.backend.dto.CommonResponse;
+import com.pg.backend.dto.Response.AllUserResponse;
+import com.pg.backend.dto.Response.CommonResponse;
 import com.pg.backend.dto.Request.AddUserRequestDto;
 import com.pg.backend.entity.Rooms;
 import com.pg.backend.entity.Users;
@@ -10,6 +11,9 @@ import com.pg.backend.repository.UserRepository;
 import com.pg.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -67,6 +71,24 @@ public class UserServiceImpl implements UserService {
         return CommonResponse.builder()
                 .message(SUCCESS_MESSAGE)
                 .statusCode(SUCCESS_STATUS_CODE)
+                .build();
+    }
+
+    @Override
+    public CommonResponse getAllUsers(Integer pageNo,Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Users> users = userRepository.findAll(pageable);
+        AllUserResponse allUserResponse = new AllUserResponse();
+        allUserResponse.setUsers(users.getContent());
+        allUserResponse.setCount(users.getSize());
+        allUserResponse.setPage(pageNo);
+        allUserResponse.setNextPage(pageable.next().getPageNumber());
+        allUserResponse.setPrevPage(pageable.previousOrFirst().getPageNumber());
+        return CommonResponse
+                .builder()
+                .response(allUserResponse)
+                .statusCode(SUCCESS_STATUS_CODE)
+                .message(SUCCESS_MESSAGE)
                 .build();
     }
 }

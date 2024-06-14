@@ -1,4 +1,4 @@
-package com.pg.backend.dto;
+package com.pg.backend.dto.Response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

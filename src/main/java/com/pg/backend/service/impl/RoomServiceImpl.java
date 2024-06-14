@@ -1,6 +1,6 @@
 package com.pg.backend.service.impl;
 
-import com.pg.backend.dto.CommonResponse;
+import com.pg.backend.dto.Response.CommonResponse;
 import com.pg.backend.entity.Rooms;
 import com.pg.backend.repository.RoomRepository;
 import com.pg.backend.service.RoomService;
