@@ -1,6 +1,6 @@
 package com.pg.backend.controller;
 
-import com.pg.backend.dto.CommonResponse;
+import com.pg.backend.dto.Response.CommonResponse;
 import com.pg.backend.service.RoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
