@@ -24,4 +24,12 @@ public class RoomController {
         CommonResponse response = roomService.getRoomDetails(roomId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllRooms(@RequestParam(value = "pageNo",defaultValue = "0") Integer pageNo,
+                                         @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
+        CommonResponse response = roomService.getAllRooms(pageNo,pageSize);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
 }
